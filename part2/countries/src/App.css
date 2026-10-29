@@ -1,0 +1,156 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f3f6fb;
+  color: #263247;
+}
+
+.app {
+  width: 90%;
+  max-width: 850px;
+  margin: 35px auto;
+}
+
+.app-header {
+  background: #183153;
+  color: white;
+  padding: 28px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+.app-header h1 {
+  margin: 0 0 10px;
+  font-size: 32px;
+}
+
+.app-header p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.search-section,
+.results-section {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.search-section label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.search-section input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-section input:focus {
+  border-color: #2563eb;
+}
+
+.country-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.country-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 7px;
+}
+
+button {
+  border: none;
+  background: #2563eb;
+  color: white;
+  padding: 9px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+.country-details h2 {
+  color: #183153;
+  font-size: 28px;
+}
+
+.country-details h3 {
+  margin-top: 25px;
+  color: #183153;
+}
+
+.country-details p {
+  line-height: 1.7;
+}
+
+.flag-container {
+  margin: 22px 0;
+}
+
+.flag {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  max-height: 200px;
+  object-fit: contain;
+  object-position: left center;
+  border: 1px solid #e2e8f0;
+}
+
+.weather-card {
+  padding: 15px;
+  background: #eff6ff;
+  border-left: 4px solid #2563eb;
+  border-radius: 7px;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 15px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  .app {
+    width: 94%;
+    margin: 18px auto;
+  }
+
+  .app-header,
+  .search-section,
+  .results-section {
+    padding: 18px;
+  }
+
+  .app-header h1 {
+    font-size: 26px;
+  }
+}
