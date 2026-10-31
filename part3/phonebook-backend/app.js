@@ -9,13 +9,16 @@ const {
 
 const app = express()
 
+// Middleware
 app.use(express.json())
 app.use(requestLogger)
 
+// Root route
 app.get('/', (request, response) => {
   response.send('<h1>Phonebook backend</h1>')
 })
 
+// Get all persons
 app.get('/api/persons', async (request, response, next) => {
   try {
     const persons = await Person.find({})
@@ -25,9 +28,11 @@ app.get('/api/persons', async (request, response, next) => {
   }
 })
 
+// Phonebook information
 app.get('/info', async (request, response, next) => {
   try {
     const count = await Person.countDocuments({})
+
     response.send(`
       <h1>Phonebook info</h1>
       <p>Phonebook has info for ${count} people</p>
@@ -38,12 +43,15 @@ app.get('/info', async (request, response, next) => {
   }
 })
 
+// Get one person
 app.get('/api/persons/:id', async (request, response, next) => {
   try {
     const person = await Person.findById(request.params.id)
 
     if (!person) {
-      return response.status(404).json({ error: 'Contact not found' })
+      return response.status(404).json({
+        error: 'Contact not found',
+      })
     }
 
     response.json(person)
@@ -52,6 +60,7 @@ app.get('/api/persons/:id', async (request, response, next) => {
   }
 })
 
+// Add a new person
 app.post('/api/persons', async (request, response, next) => {
   try {
     const { name, number } = request.body
@@ -73,12 +82,14 @@ app.post('/api/persons', async (request, response, next) => {
     })
 
     const savedPerson = await person.save()
+
     response.status(201).json(savedPerson)
   } catch (error) {
     next(error)
   }
 })
 
+// Update a person
 app.put('/api/persons/:id', async (request, response, next) => {
   try {
     const { name, number } = request.body
@@ -96,12 +107,20 @@ app.put('/api/persons/:id', async (request, response, next) => {
 
     const updatedPerson = await Person.findByIdAndUpdate(
       request.params.id,
-      { name: name.trim(), number: number.trim() },
-      { new: true, runValidators: true }
+      {
+        name: name.trim(),
+        number: number.trim(),
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
     )
 
     if (!updatedPerson) {
-      return response.status(404).json({ error: 'Contact not found' })
+      return response.status(404).json({
+        error: 'Contact not found',
+      })
     }
 
     response.json(updatedPerson)
@@ -110,12 +129,17 @@ app.put('/api/persons/:id', async (request, response, next) => {
   }
 })
 
+// Delete a person
 app.delete('/api/persons/:id', async (request, response, next) => {
   try {
-    const deletedPerson = await Person.findByIdAndDelete(request.params.id)
+    const deletedPerson = await Person.findByIdAndDelete(
+      request.params.id
+    )
 
     if (!deletedPerson) {
-      return response.status(404).json({ error: 'Contact not found' })
+      return response.status(404).json({
+        error: 'Contact not found',
+      })
     }
 
     response.status(204).end()
@@ -124,7 +148,10 @@ app.delete('/api/persons/:id', async (request, response, next) => {
   }
 })
 
+// Unknown endpoint handler
 app.use(unknownEndpoint)
+
+// Error handler must be last
 app.use(errorHandler)
 
 module.exports = app

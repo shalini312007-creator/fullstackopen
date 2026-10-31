@@ -1,16 +1,9 @@
+require('dotenv').config()
 
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+const PORT = process.env.PORT || 3001
+const MONGODB_URI = process.env.MONGODB_URI
 
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    host: '0.0.0.0',
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-      },
-    },
-  },
-})
+module.exports = {
+  PORT,
+  MONGODB_URI
+}
